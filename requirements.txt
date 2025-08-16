@@ -4,4 +4,3 @@ matplotlib
 tqdm
 scikit-learn
 Pillow
-notebook
