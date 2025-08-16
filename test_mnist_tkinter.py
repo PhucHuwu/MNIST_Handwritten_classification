@@ -38,7 +38,7 @@ def preprocess_image(image_path):
 
 def create_drawing_window():
     root = tk.Tk()
-    root.title("Vẽ và dự đoán số")
+    root.title("Draw and Predict Digits")
 
     canvas = tk.Canvas(root, width=280, height=280, bg='black')
     canvas.grid(row=0, column=0, columnspan=2, padx=5, pady=5)
@@ -74,7 +74,7 @@ def create_drawing_window():
 
     def clear_canvas():
         canvas.delete("all")
-        result_label.config(text="Vẽ một số để dự đoán", font=('Arial', 18))
+        result_label.config(text="Draw a digit to predict", font=('Arial', 18))
 
     def predict():
         if canvas.find_all():
@@ -98,10 +98,10 @@ def create_drawing_window():
             predicted = torch.argmax(output, dim=1).item()
             confidence = torch.max(output, dim=1).values.item()
 
-            result_label.config(text=f'{predicted} (Độ tin cậy: {confidence:.3f})',
+            result_label.config(text=f'{predicted} (Confidence: {confidence:.3f})',
                                 font=('Arial', 18, 'bold'))
         else:
-            result_label.config(text="Vẽ một số để dự đoán", font=('Arial', 18))
+            result_label.config(text="Draw a digit to predict", font=('Arial', 18))
 
     canvas.bind('<Button-1>', start_drawing)
     canvas.bind('<B1-Motion>', draw)
@@ -110,9 +110,9 @@ def create_drawing_window():
     button_frame = tk.Frame(root)
     button_frame.grid(row=1, column=0, columnspan=2, pady=10)
 
-    ttk.Button(button_frame, text="Xóa", command=clear_canvas).pack(side=tk.LEFT, padx=5)
+    ttk.Button(button_frame, text="Clear", command=clear_canvas).pack(side=tk.LEFT, padx=5)
 
-    result_label = ttk.Label(root, text="Vẽ một số để dự đoán", font=('Arial', 18))
+    result_label = ttk.Label(root, text="Draw a digit to predict", font=('Arial', 18))
     result_label.grid(row=2, column=0, columnspan=2, pady=10)
 
     return root
