@@ -32,3 +32,24 @@ class Linear:
             output = output + self.bias
 
         return output
+    
+    def backward(self, grad_output):
+        x = self.input_cache
+        if len(x.shape) > 2:
+            batch_size = x.shape[0]
+            x = x.view(batch_size, -1)
+
+        self.weight_grad = torch.matmul(grad_output.t(), x)
+
+        if self.use_bias:
+            self.bias_grad = torch.sum(grad_output, dim=0)
+
+        grad_input = torch.matmul(grad_output, self.weight)
+
+        return grad_input
+
+    def parameters(self):
+        params = [self.weight]
+        if self.use_bias:
+            params.append(self.bias)
+        return params
