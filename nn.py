@@ -212,9 +212,6 @@ class Adam:
 
             param.data -= self.lr * m_hat / (torch.sqrt(v_hat) + self.eps)
 
-    def zero_grad(self):
-        pass
-
 
 class Net:
     def __init__(self):
@@ -263,9 +260,3 @@ class Net:
 
     def parameters(self):
         return self._parameters
-
-    def train(self):
-        pass
-
-    def eval(self):
-        pass
