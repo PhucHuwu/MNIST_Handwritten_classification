@@ -2,7 +2,7 @@ data/
 *.pdf
 *.md
 !README.md
-*.html
+slide/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
