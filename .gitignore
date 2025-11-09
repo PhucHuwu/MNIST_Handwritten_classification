@@ -2,6 +2,7 @@ data/
 *.pdf
 *.md
 !README.md
+*.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
