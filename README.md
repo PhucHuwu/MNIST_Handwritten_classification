@@ -27,7 +27,7 @@ This project implements a complete handwritten digit classification system using
     -   ReLU and Softmax activation functions
     -   Cross-entropy loss function
     -   Adam optimizer
--   **High Accuracy**: Achieves **97.57%** validation accuracy on MNIST dataset
+-   **High Accuracy**: Achieves **96.53%** validation accuracy on MNIST dataset
 -   **Interactive GUI**: Real-time digit drawing and prediction using Tkinter
 -   **Complete Training Pipeline**: Jupyter notebook with comprehensive training and visualization
 -   **Model Checkpointing**: Automatic saving of best performing models during training
@@ -50,7 +50,7 @@ MNIST_Handwritten_classification/
 │       └── raw/                                         # Raw MNIST data files
 │
 ├── model_checkpoints/                                   # Saved model checkpoints
-│   └── best_model_epoch_55_acc_0.9757.pth (best model)
+│   └── best_model_epoch_18_valacc_0.9653.pth (best model)
 │
 └── training_plots/                                      # Training visualization outputs
     ├── confusion_matrix.png
@@ -204,7 +204,7 @@ python test_mnist_tkinter.py
 3. View the predicted digit and confidence score
 4. Click "Clear" to draw a new digit
 
-**Note:** The GUI uses the best model checkpoint: `best_model_epoch_55_acc_0.9757.pth`
+**Note:** The GUI uses the best model checkpoint: `best_model_epoch_18_valacc_0.9653.pth`
 
 ### 3. Programmatic Testing
 
@@ -215,7 +215,7 @@ from torchvision import transforms
 from PIL import Image
 
 # Load the model
-checkpoint = torch.load('model_checkpoints/best_model_epoch_55_acc_0.9757.pth')
+checkpoint = torch.load('model_checkpoints/best_model_epoch_18_valacc_0.9653.pth')
 model = Net()
 
 # Load model weights
@@ -250,28 +250,22 @@ print(f"Confidence: {confidence:.4f}")
 
 ### Performance Metrics
 
--   **Best Validation Accuracy**: **97.57%** (Epoch 55)
+-   **Best Validation Accuracy**: **96.53%** (Epoch 18)
 -   **Training Configuration**: Max 100 epochs with early stopping (patience: 10, min delta: 0.0001)
 -   **Training Loss**: Converged smoothly
--   **Model Checkpoints**: 13 best models saved during training
+-   **Model Checkpoints**: 7 best models saved during training
 
 ### Model Checkpoints
 
 | Checkpoint | Epoch | Validation Accuracy |
 |-----------|-------|-------------------|
-| best_model_epoch_1_acc_0.9347.pth | 1 | 93.47% |
-| best_model_epoch_2_acc_0.9537.pth | 2 | 95.37% |
-| best_model_epoch_5_acc_0.9592.pth | 5 | 95.92% |
-| best_model_epoch_9_acc_0.9601.pth | 9 | 96.01% |
-| best_model_epoch_13_acc_0.9627.pth | 13 | 96.27% |
-| best_model_epoch_15_acc_0.9698.pth | 15 | 96.98% |
-| best_model_epoch_20_acc_0.9705.pth | 20 | 97.05% |
-| best_model_epoch_24_acc_0.9721.pth | 24 | 97.21% |
-| best_model_epoch_26_acc_0.9729.pth | 26 | 97.29% |
-| best_model_epoch_29_acc_0.9730.pth | 29 | 97.30% |
-| best_model_epoch_45_acc_0.9733.pth | 45 | 97.33% |
-| best_model_epoch_47_acc_0.9736.pth | 47 | 97.36% |
-| **best_model_epoch_55_acc_0.9757.pth** | **55** | **97.57%** |
+| best_model_epoch_1_valacc_0.8273.pth | 1 | 82.73% |
+| best_model_epoch_2_valacc_0.8577.pth | 2 | 85.77% |
+| best_model_epoch_3_valacc_0.8663.pth | 3 | 86.63% |
+| best_model_epoch_5_valacc_0.9388.pth | 5 | 93.88% |
+| best_model_epoch_6_valacc_0.9541.pth | 6 | 95.41% |
+| best_model_epoch_11_valacc_0.9571.pth | 11 | 95.71% |
+| **best_model_epoch_18_valacc_0.9653.pth** | **18** | **96.53%** |
 
 ### Training Visualizations
 
@@ -281,7 +275,7 @@ print(f"Confidence: {confidence:.4f}")
   <img src="training_plots/training_history.png" alt="Training History" width="800"/>
 </p>
 
-The training history shows the progression of training loss and validation accuracy throughout the training process. The model demonstrates stable convergence with the validation accuracy steadily improving to reach 97.57%.
+The training history shows the progression of training loss and validation accuracy throughout the training process. The model demonstrates stable convergence with the validation accuracy steadily improving to reach 96.53%.
 
 #### Combined Metrics Analysis
 
