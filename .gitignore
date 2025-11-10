@@ -3,6 +3,10 @@ data/
 *.md
 !README.md
 slide/
+training_report/
+plot_data_export/
+extract_training_info.py
+extract_plot_data.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
