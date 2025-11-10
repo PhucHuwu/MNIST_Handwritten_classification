@@ -194,6 +194,9 @@ class Adam:
             self.m.append(torch.zeros_like(param))
             self.v.append(torch.zeros_like(param))
 
+    def zero_grad(self):
+        pass
+
     def step(self, gradients):
         self.t += 1
 
@@ -229,6 +232,24 @@ class Net:
         self._parameters.extend(self.first_layer.parameters())
         self._parameters.extend(self.second_layer.parameters())
         self._parameters.extend(self.output_layer.parameters())
+
+        self.training = True
+
+    def train(self, mode=True):
+        self.training = mode
+        return self
+
+    def eval(self):
+        self.training = False
+        return self
+
+    def zero_grad(self):
+        self.first_layer.weight_grad = None
+        self.first_layer.bias_grad = None
+        self.second_layer.weight_grad = None
+        self.second_layer.bias_grad = None
+        self.output_layer.weight_grad = None
+        self.output_layer.bias_grad = None
 
     def forward(self, x):
         x = self.flatten.forward(x)
