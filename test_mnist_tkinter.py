@@ -170,7 +170,7 @@ def create_drawing_window(model):
 
 
 def test_model():
-    model_path = 'model_checkpoints/best_model_epoch_55_acc_0.9757.pth'
+    model_path = 'model_checkpoints/best_model_epoch_18_valacc_0.9653.pth'
 
     try:
         print("="*60)
