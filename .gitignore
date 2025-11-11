@@ -1,10 +1,11 @@
 data/
 *.pdf
 *.md
+!doc.md
 !README.md
 slide/
-training_report/
-plot_data_export/
+training_report/*.json
+plot_data_export/*.json
 extract_training_info.py
 extract_plot_data.py
 cnn_model.py
