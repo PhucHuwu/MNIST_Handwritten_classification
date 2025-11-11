@@ -1,0 +1,127 @@
+================================================================================
+MNIST HANDWRITTEN DIGIT CLASSIFICATION - TRAINING REPORT
+================================================================================
+Report Generated: 2025-11-11 03:33:47
+
+--------------------------------------------------------------------------------
+1. MODEL ARCHITECTURE
+--------------------------------------------------------------------------------
+Total Parameters: 235,146
+
+FIRST_LAYER:
+  Weight Shape: [256, 784]
+  Bias Shape: [256]
+  Parameters: 200,960
+
+SECOND_LAYER:
+  Weight Shape: [128, 256]
+  Bias Shape: [128]
+  Parameters: 32,896
+
+OUTPUT_LAYER:
+  Weight Shape: [10, 128]
+  Bias Shape: [10]
+  Parameters: 1,290
+
+--------------------------------------------------------------------------------
+2. HYPERPARAMETERS
+--------------------------------------------------------------------------------
+Model Configuration:
+  input_size: 784
+  first_layer: 256
+  second_layer: 128
+  output_layer: 10
+  activation_function: ReLU
+  output_activation: Softmax
+
+Training Configuration:
+  optimizer: Adam
+  learning_rate: 0.001
+  beta1: 0.9
+  beta2: 0.999
+  loss_function: CrossEntropyLoss
+  batch_size: 64
+  max_epochs: 100
+  early_stopping_patience: 10
+  early_stopping_min_delta: 0.001
+
+Data Configuration:
+  train_split: 0.8
+  validation_split: 0.2
+  test_set: separate
+  random_seed: 42
+
+--------------------------------------------------------------------------------
+3. TRAINING STATISTICS
+--------------------------------------------------------------------------------
+Total Epochs Trained: 6
+Convergence Epoch: 6
+
+Initial Performance:
+  Train Loss: 1.729934
+  Val Accuracy: 0.8273
+
+Final Performance:
+  Train Loss: 1.509251
+  Val Accuracy: 0.9541
+
+Best Performance:
+  Best Val Accuracy: 0.9541
+  Best Epoch: 6
+  Min Train Loss: 1.509251
+
+Improvement:
+  Train Loss Reduced By: 0.220684
+  Val Accuracy Improved By: 0.1268
+
+Statistical Measures:
+  Avg Train Loss: 1.599961 ± 0.069261
+  Avg Val Accuracy: 0.8849 ± 0.0456
+
+--------------------------------------------------------------------------------
+4. MODEL CHECKPOINTS
+--------------------------------------------------------------------------------
+Total Checkpoints Saved: 7
+
+Checkpoint Details:
+1. best_model_epoch_11_valacc_0.9571.pth
+   Epoch: 11, Val Acc: 0.9571
+2. best_model_epoch_18_valacc_0.9653.pth
+   Epoch: 18, Val Acc: 0.9653
+3. best_model_epoch_1_valacc_0.8273.pth
+   Epoch: 1, Val Acc: 0.8273
+4. best_model_epoch_2_valacc_0.8577.pth
+   Epoch: 2, Val Acc: 0.8577
+5. best_model_epoch_3_valacc_0.8663.pth
+   Epoch: 3, Val Acc: 0.8663
+6. best_model_epoch_5_valacc_0.9388.pth
+   Epoch: 5, Val Acc: 0.9388
+7. best_model_epoch_6_valacc_0.9541.pth
+   Epoch: 6, Val Acc: 0.9541
+
+--------------------------------------------------------------------------------
+5. GENERATED VISUALIZATIONS
+--------------------------------------------------------------------------------
+Total Plots Generated: 6
+
+• combined_metrics.png
+  Combined training loss and validation accuracy on dual-axis plot
+
+• confusion_matrix.png
+  Confusion matrix showing prediction accuracy for each digit class
+
+• gradient_norms.png
+  Gradient norms for each layer during training
+
+• prediction_distribution.png
+  Distribution of predictions for each true class
+
+• sample_predictions.png
+  Sample predictions on test set with confidence scores
+
+• training_history.png
+  Training loss and validation accuracy over epochs (separate plots)
+
+================================================================================
+END OF REPORT
+================================================================================
