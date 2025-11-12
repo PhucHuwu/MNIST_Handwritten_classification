@@ -4,14 +4,15 @@ data/
 !doc.md
 !README.md
 slide/
-training_report/*.json
-plot_data_export/*.json
+training_report/
+plot_data_export/
 extract_training_info.py
 extract_plot_data.py
 cnn_model.py
 compare_models.py
 compare_cnn_vs_fc.ipynb
 comparison_plots/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
