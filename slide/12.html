@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <title>Quy trình Training</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            font-style: italic;
+            padding: 8px 12px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Quy trình Training</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Code and Configuration -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Cấu hình:</span></p>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mb-6">
+                        <p class="text-lg"><span class="font-semibold">Epochs:</span> 100 (tối đa)</p>
+                        <p class="text-lg"><span class="font-semibold">Batch size:</span> 64</p>
+                        <p class="text-lg"><span class="font-semibold">Early stopping:</span> patience = 10, min_delta =
+                            0.0001</p>
+                        <p class="text-lg"><span class="font-semibold">Optimizer:</span> Adam (lr = 0.001)</p>
+                    </div>
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Training loop:</span></p>
+                    <div class="code-block p-4 mb-4 text-sm">
+                        <p><span class="keyword">for</span> epoch <span class="keyword">in</span> <span
+                                class="function">range</span>(max_epochs):</p>
+                        <p>⠀⠀⠀⠀<span class="comment"># 1. Forward pass</span></p>
+                        <p>⠀⠀⠀⠀output = model.forward(images)</p>
+                        <p>⠀⠀⠀⠀<span class="comment"># 2. Compute loss</span></p>
+                        <p>⠀⠀⠀⠀loss = loss_fn.forward(output, labels)</p>
+                        <p>⠀⠀⠀⠀<span class="comment"># 3. Backward pass</span></p>
+                        <p>⠀⠀⠀⠀grad = loss_fn.backward()</p>
+                        <p>⠀⠀⠀⠀model.backward(grad)</p>
+                        <p>⠀⠀⠀⠀<span class="comment"># 4. Update parameters</span></p>
+                        <p>⠀⠀⠀⠀optimizer.step(model.get_gradients())</p>
+                        <p>⠀⠀⠀⠀<span class="comment"># 5. Evaluate on validation set</span></p>
+                        <p>⠀⠀⠀⠀val_acc = evaluate(model, val_loader)</p>
+                        <p>⠀⠀⠀⠀<span class="comment"># 6. Save best model</span></p>
+                        <p>⠀⠀⠀⠀<span class="keyword">if</span> val_acc &gt; best_acc:</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀save_checkpoint(model, optimizer, epoch)</p>
+                    </div>
+                </div>
+                <!-- Right Column - Explanation -->
+                <div class="w-1/2 pl-8">
+                    <p class="text-xl font-bold text-blue-800 mb-3">Quy trình chi tiết:</p>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Khởi tạo</p>
+                            <p class="text-lg">• Khởi tạo mạng, hàm loss, optimizer</p>
+                            <p class="text-lg">• Chuẩn bị DataLoader cho training/validation</p>
+                            <p class="text-lg">• Biến theo dõi: best_acc, no_improvement_count</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Training cycle</p>
+                            <p class="text-lg">• Forward: input → model → output → loss</p>
+                            <p class="text-lg">• Backward: loss gradient → backprop → update params</p>
+                            <p class="text-lg">• Đánh giá: validation accuracy sau mỗi epoch</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Checkpointing</p>
+                            <p class="text-lg">• Lưu model khi validation accuracy cải thiện</p>
+                            <p class="text-lg">• Checkpoint bao gồm: state các layer, optimizer, metrics</p>
+                            <p class="text-lg">• Model tốt nhất: Epoch 18, validation accuracy 96.53%</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Early Stopping</p>
+                            <p class="text-lg">• Dừng training khi không có cải thiện sau 10 epochs</p>
+                            <p class="text-lg">• Tránh overfitting, tiết kiệm thời gian</p>
+                            <p class="text-lg">• Thực tế: dừng sau 28 epochs (early stopping tại epoch 28)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

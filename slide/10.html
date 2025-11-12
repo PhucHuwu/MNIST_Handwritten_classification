@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Cross-Entropy Loss</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            font-style: italic;
+            padding: 8px 12px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .formula-block {
+            background-color: #edf2f7;
+            border-radius: 8px;
+            padding: 1px 1px;
+            text-align: center;
+            margin: 12px 0;
+        }
+
+        .MathJax {
+            font-size: 1.2em !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Cross-Entropy Loss</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Formula and Code -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Công thức toán học:</span></p>
+                    <div class="formula-block mb-6">
+                        <p>\[L = -\frac{1}{N}\sum_{i=1}^{N} \sum_{j=1}^{C} y_{i,j} \log(\hat{y}_{i,j})\]</p>
+                    </div>
+                    <p class="text-lg mb-2"><span class="font-bold">Trong đó:</span></p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>
+                            <p class="text-base">\(N\): Batch size</p>
+                        </li>
+                        <li>
+                            <p class="text-base">\(C\): Số lớp (10 chữ số)</p>
+                        </li>
+                        <li>
+                            <p class="text-base">\(y_{i,j}\): One-hot encoded label thật</p>
+                        </li>
+                        <li>
+                            <p class="text-base">\(\hat{y}_{i,j}\): Predicted probability (sau Softmax)</p>
+                        </li>
+                    </ul>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mt-4">
+                        <p class="text-lg font-semibold text-blue-800 mb-2">Lý do sử dụng CrossEntropy:</p>
+                        <p class="text-lg">• Phù hợp với bài toán phân loại đa lớp</p>
+                        <p class="text-lg">• Penalize lỗi nghiêm trọng hơn so với MSE</p>
+                        <p class="text-lg">• Backpropagation đơn giản và hiệu quả</p>
+                        <p class="text-lg">• Thúc đẩy mô hình tự tin khi dự đoán</p>
+                    </div>
+                </div>
+                <!-- Right Column - Explanation -->
+                <div class="w-1/2 pl-8">
+                    <p class="text-xl font-bold text-blue-800 mb-3">Giải thích chi tiết:</p>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Quá trình xử lý</p>
+                            <p class="text-lg">• Đầu vào: logits từ mạng neural + nhãn thật</p>
+                            <p class="text-lg">• Đầu ra: giá trị loss scalar</p>
+                            <p class="text-lg">• Kết hợp với Softmax để được output xác suất</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Xử lý nhãn</p>
+                            <p class="text-lg">• Có thể nhận nhãn dạng index hoặc one-hot</p>
+                            <p class="text-lg">• One-hot vector: [0,0,1,0,...] - vector đánh dấu lớp đúng</p>
+                            <p class="text-lg">• Scatter_: phương thức PyTorch tạo one-hot từ index</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Ổn định số học</p>
+                            <p class="text-lg">• Clamp probabilities để tránh log(0)</p>
+                            <p class="text-lg">• Giúp tránh numeric overflow/underflow</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Gradient với Softmax</p>
+                            <p class="text-lg">• Khi kết hợp Softmax + CrossEntropy:</p>
+                            <div class="formula-block">
+                                <p>\[\frac{\partial L}{\partial z} = \frac{1}{N}(\text{softmax}(z) - y)\]</p>
+                            </div>
+                            <p class="text-lg">• Công thức đơn giản giúp tính toán nhanh và ổn định</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

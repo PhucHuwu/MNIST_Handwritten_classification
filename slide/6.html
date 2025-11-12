@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <title>Linear Layer - Forward Pass</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            font-style: italic;
+            padding: 8px 12px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Linear Layer - Forward Pass</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Code -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-lg mb-3"><span class="font-bold text-blue-700">Implementation:</span> Linear Layer
+                        trong mạng neural</p>
+                    <div class="code-block p-4 mb-6 text-sm">
+                        <p><span class="keyword">class</span> <span class="function">Linear</span>:</p>
+                        <p> <span class="keyword">⠀⠀⠀⠀def</span> <span class="function">__init__</span>(self, in_features,
+                            out_features):</p>
+                        <p> <span class="comment">⠀⠀⠀⠀⠀⠀⠀⠀# Xavier/He initialization</span></p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.weight = torch.randn(out_features, in_features)\</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀* math.sqrt(2.0 / in_features)</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.bias = torch.zeros(out_features)</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.input_cache = <span class="keyword">None</span></p>
+                        <p> </p>
+                        <p> <span class="keyword">⠀⠀⠀⠀def</span> <span class="function">forward</span>(self, x):</p>
+                        <p> <span class="comment">⠀⠀⠀⠀⠀⠀⠀⠀# Lưu input cho backward pass</span></p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.input_cache = x.clone()</p>
+                        <p> </p>
+                        <p> <span class="comment">⠀⠀⠀⠀⠀⠀⠀⠀# y = x @ W^T + b</span></p>
+                        <p> ⠀⠀⠀⠀⠀⠀⠀⠀output = torch.matmul(x, self.weight.t())</p>
+                        <p> ⠀⠀⠀⠀⠀⠀⠀⠀output = output + self.bias</p>
+                        <p> </p>
+                        <p> <span class="keyword">⠀⠀⠀⠀⠀⠀⠀⠀return</span> output</p>
+                    </div>
+                </div>
+                <!-- Right Column - Math and Explanation -->
+                <div class="w-1/2 pl-8">
+                    <p class="text-lg font-bold text-blue-800 mb-4">Công thức toán học:</p>
+                    <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500 mb-5">
+                        <p class="text-lg text-center">$\mathbf{y} = \mathbf{x} \mathbf{W}^T + \mathbf{b}$</p>
+                        <p class="text-base text-center text-gray-600 italic">(Đầu ra = Đầu vào × Ma trận trọng số chuyển vị + Hệ số điều chỉnh)</p>
+                        <p class="text-lg"><span class="font-bold">Trong đó:</span></p>
+                        <p class="text-lg">• $\mathbf{x}$: Vector đầu vào (kích thước: batch_size × in_features)</p>
+                        <p class="text-lg">• $\mathbf{W}$: Ma trận trọng số (kích thước: out_features × in_features)</p>
+                        <p class="text-lg">• $\mathbf{W}^T$: Ma trận trọng số chuyển vị (transpose)</p>
+                        <p class="text-lg">• $\mathbf{b}$: Vector bias - hệ số điều chỉnh (kích thước: out_features)</p>
+                        <p class="text-lg">• $\mathbf{y}$: Vector đầu ra (kích thước: batch_size × out_features)</p>
+                    </div>
+                    <p class="text-lg font-bold text-blue-800 mb-4">Khởi tạo trọng số (Xavier/He Initialization):</p>
+                </div>
+            </div>
+            <div class="flex justify-end px-12">
+                <div class="w-2/39">
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-lg text-center">$\mathbf{W} \sim \mathcal{N}\left(0, \sqrt{\frac{2}{n_{in}}}\right)$</p>
+                        <p class="text-base text-center text-gray-600 italic">(Trọng số được khởi tạo theo phân phối chuẩn với trung bình 0
+                            và độ lệch chuẩn $\sqrt{2/n_{in}}$)</p>
+                        <p class="text-lg mb-2"><span class="font-semibold">Trong đó:</span></p>
+                        <p class="text-lg">• $\sim$ : "tuân theo phân phối"</p>
+                        <p class="text-lg">• $\mathcal{N}(μ, σ)$ : Phân phối chuẩn (Normal Distribution) với trung bình $μ$ và độ lệch chuẩn
+                            $σ$</p>
+                        <p class="text-lg mb-2">• $n_{in}$ : Số lượng neuron đầu vào (in_features)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

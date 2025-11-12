@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <title>Hệ thống Phân loại Chữ số Viết tay MNIST</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #1a365d;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .mnist-grid {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .accent-bar {
+            width: 150px;
+            height: 8px;
+            background-color: #3182ce;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="background-pattern">
+            <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <pattern height="40" id="pattern" patternunits="userSpaceOnUse" width="40" x="0" y="0">
+                    <rect fill="#3182ce" height="1" opacity="0.3" width="1" x="0" y="0"></rect>
+                </pattern>
+                <rect fill="url(#pattern)" height="100%" width="100%" x="0" y="0"></rect>
+            </svg>
+        </div>
+        <div class="content-wrapper p-16">
+            <!-- Header Section -->
+            <div class="mb-4">
+                <p class="subtitle text-xl text-blue-300">XỬ LÝ ẢNH</p>
+            </div>
+            <!-- Title Section -->
+            <div class="my-8">
+                <p class="title text-6xl leading-tight">Hệ thống Phân loại<br />Chữ số Viết tay MNIST</p>
+                <div class="accent-bar"></div>
+                <p class="subtitle text-2xl text-blue-200">Xây dựng thuật toán ANN cho bài toán phân loại chữ số viết
+                    tay
+            </div>
+            <!-- MNIST Samples Section -->
+            <div class="flex justify-between items-center">
+                <div class="mnist-grid">
+                    <img src="https://m-alcu.github.io/assets/mnist.png" alt="MNIST digit samples 0-9" style="width: 450px; height: auto;">
+                </div>
+                <div class="ml-8">
+                    <p class="text-xl"><span class="font-bold">Tác giả:</span> Trần Hữu Phúc, Bùi Ngọc Vũ</p>
+                    <p class="text-xl mt-4"><span class="font-bold">Kết quả:</span> Validation accuracy 96.53% (Epoch
+                        18)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

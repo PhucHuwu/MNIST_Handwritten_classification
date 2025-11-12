@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Linear Layer - Backward Pass (Backprop)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .MathJax {
+            font-size: 1.2em !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Linear Layer - Backward Pass (Backprop)</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Formulas and Code -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Gradients cần tính:</span> Weight,
+                        Bias, Input</p>
+                    <div class="mb-4">
+                        <p class="text-lg font-semibold mb-2">Công thức toán học:</p>
+                        <div class="flex flex-col gap-3">
+                            <div class="math-formula text-center text-base px-4 py-2">
+                                <p>\[\frac{\partial L}{\partial W} = \left(\frac{\partial L}{\partial y}\right)^T \cdot x\]</p>
+                                <p class="text-sm text-gray-700 mt-1">Gradient của trọng số = Chuyển vị gradient đầu ra × Input</p>
+                            </div>
+                            <div class="math-formula text-center text-base px-4 py-2">
+                                <p>\[\frac{\partial L}{\partial b} = \sum \frac{\partial L}{\partial y}\]</p>
+                                <p class="text-sm text-gray-700 mt-1">Gradient của bias = Tổng gradient đầu ra theo batch</p>
+                            </div>
+                            <div class="math-formula text-center text-base px-4 py-2">
+                                <p>\[\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot W\]</p>
+                                <p class="text-sm text-gray-700 mt-1">Gradient đầu vào = Gradient đầu ra × Trọng số</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column - Explanation -->
+                <div class="w-1/2 pl-8">
+                    <p class="text-xl font-bold text-blue-800 mb-3">Quá trình Backpropagation:</p>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Nhận gradient từ layer sau</p>
+                            <p class="text-base">• Layer nhận vào <span class="font-semibold">\(\frac{\partial L}{\partial y}\)</span> (gradient của
+                                loss theo output)</p>
+                            <p class="text-base">• Shape: (batch_size, out_features)</p>
+                            <p class="text-base">• Đây là gradient đã được tính bởi các layer phía sau</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Tính gradient của weights</p>
+                            <p class="text-base">• <span class="font-semibold">\(\frac{\partial L}{\partial W} = \left(\frac{\partial L}{\partial y}\right)^T \cdot x\)</span></p>
+                            <p class="text-base">• Sử dụng input đã lưu từ forward pass</p>
+                            <p class="text-base">• Shape: (out_features, in_features)</p>
+                            <p class="text-base">• Dùng cho cập nhật weights: \(W \leftarrow W - \alpha \cdot \frac{\partial L}{\partial W}\)</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Tính gradient của bias</p>
+                            <p class="text-base">• <span class="font-semibold">\(\frac{\partial L}{\partial b} = \sum \frac{\partial L}{\partial y}\)</span> (tổng theo batch)
+                            </p>
+                            <p class="text-base">• Shape: (out_features)</p>
+                            <p class="text-base">• Dùng cho cập nhật bias: \(b \leftarrow b - \alpha \cdot \frac{\partial L}{\partial b}\)</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Tính gradient để truyền về sau</p>
+                            <p class="text-base">• <span class="font-semibold">\(\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot W\)</span></p>
+                            <p class="text-base">• Shape: (batch_size, in_features)</p>
+                            <p class="text-base">• Truyền về layer trước để tiếp tục backprop</p>
+                            <p class="text-base">• Dòng chảy gradient: input → hidden → output → loss</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <title>Kiến trúc mạng Neural Network</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .info-icon {
+            color: #3182ce;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .image-container {
+            border: 2px solid #3182ce;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            margin-top: 8px;
+            color: #4a5568;
+        }
+
+        .feature-box {
+            border-left: 4px solid #3182ce;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .layer-box {
+            background-color: #f0f5ff;
+            border: 1px solid #3182ce;
+            border-radius: 5px;
+            padding: 4px 8px;
+            margin: 2px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .layer-box p {
+            margin: 2px 0;
+            font-size: 14px;
+        }
+
+        .layer-box .font-bold {
+            font-size: 15px;
+        }
+
+        .arrow-down {
+            color: #3182ce;
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            line-height: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Kiến trúc mạng Neural Network</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-16">
+                <!-- Left Column - Architecture Details -->
+                <div class="w-1/2 pr-10">
+                    <div class="mb-6">
+                        <p class="text-xl font-bold text-blue-800 mb-3">Cấu trúc chi tiết mạng neural</p>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Tổng quan kiến trúc</p>
+                            <p class="text-lg">• Mạng neural đa lớp (MLP) hoàn toàn kết nối</p>
+                            <p class="text-lg">• Mô hình xây dựng từ đầu (from scratch)</p>
+                            <p class="text-lg">• Input: Ảnh grayscale 28×28 → vector 784 phần tử</p>
+                            <p class="text-lg">• Output: Vector xác suất 10 lớp (chữ số 0-9)</p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Thống kê tham số</p>
+                            <p class="text-lg">• Tổng số tham số: 235,146</p>
+                            <p class="text-lg">• Layer 1: 784×256 + 256 = 200,960 tham số</p>
+                            <p class="text-lg">• Layer 2: 256×128 + 128 = 32,896 tham số</p>
+                            <p class="text-lg">• Layer 3: 128×10 + 10 = 1,290 tham số</p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Lý do chọn kiến trúc</p>
+                            <p class="text-lg">• Minh họa rõ forward/backward propagation</p>
+                            <p class="text-lg">• Cân bằng giữa hiệu suất và độ phức tạp</p>
+                            <p class="text-lg">• Phù hợp học tập flow gradient qua mạng</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column - Visual Architecture -->
+                <div class="w-1/2 pl-10">
+                    <p class="text-xl font-bold text-blue-800 mb-2">Sơ đồ kiến trúc</p>
+                    <div class="image-container py-2">
+                        <!-- Neural Network Architecture Diagram -->
+                        <div class="layer-box bg-gray-200">
+                            <p class="font-bold">Input Image (28×28)</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-yellow-100">
+                            <p class="font-bold">Flatten Layer (784)</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-blue-100">
+                            <p class="font-bold">Linear Layer 1 (784 → 256)</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-green-100">
+                            <p class="font-bold">ReLU Activation</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-blue-100">
+                            <p class="font-bold">Linear Layer 2 (256 → 128)</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-green-100">
+                            <p class="font-bold">ReLU Activation</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-blue-100">
+                            <p class="font-bold">Output Layer (128 → 10)</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-purple-100">
+                            <p class="font-bold">Softmax Activation</p>
+                        </div>
+                        <p class="arrow-down"><i class="fas fa-arrow-down"></i></p>
+                        <div class="layer-box bg-red-100">
+                            <p class="font-bold">Output (10 lớp xác suất: 0 - 9)</p>
+                        </div>
+                        <p class="image-caption mt-2" style="font-size: 13px;">Kiến trúc mạng neural cho nhận dạng chữ số MNIST</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

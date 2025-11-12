@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Kết quả Training</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .info-icon {
+            color: #3182ce;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .chart-container {
+            border: 2px solid #3182ce;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: white;
+            margin-bottom: 20px;
+            height: 220px;
+        }
+
+        .chart-caption {
+            text-align: center;
+            font-style: italic;
+            margin-top: 12px;
+            color: #4a5568;
+        }
+
+        .feature-box {
+            border-left: 4px solid #3182ce;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 2px solid #3182ce;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .highlight-text {
+            color: #2b6cb0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .highlight-value {
+            color: #2c5282;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .milestone-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .milestone-table th,
+        .milestone-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .milestone-table th {
+            background-color: #edf2f7;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .milestone-table tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Kết quả Training</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-16">
+                <!-- Left Column - Results Information -->
+                <div class="w-1/2 pr-10">
+                    <div class="mb-6">
+                        <p class="text-xl font-bold text-blue-800 mb-3">Thông tin kết quả</p>
+                        <div class="highlight-box">
+                            <p class="highlight-text">Độ chính xác tốt nhất (validation)</p>
+                            <p class="highlight-value">96.53%</p>
+                            <p class="highlight-text">tại Epoch 18</p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Tiến trình huấn luyện</p>
+                            <table class="milestone-table">
+                                <thead>
+                                    <tr>
+                                        <th>Epoch</th>
+                                        <th>Validation Accuracy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>82.73%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>85.77%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>18</td>
+                                        <td><span class="font-bold">96.53%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Thông tin huấn luyện</p>
+                            <p class="text-lg">• Early stopping sau epoch 28</p>
+                            <p class="text-lg">• Test accuracy: 96.30%</p>
+                            <p class="text-lg">• Mô hình tốt nhất: Epoch 18</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column - Charts -->
+                <div class="w-1/2 pl-10">
+                    <p class="text-xl font-bold text-blue-800 mb-4">Biểu đồ kết quả</p>
+                    <div class="chart-container">
+                        <canvas id="lossChart"></canvas>
+                        <p class="chart-caption">Biểu đồ Training Loss</p>
+                    </div>
+                    <div class="chart-container mt-8">
+                        <canvas id="accuracyChart"></canvas>
+                        <p class="chart-caption">Biểu đồ Validation Accuracy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Loss Chart
+            const lossCtx = document.getElementById('lossChart').getContext('2d');
+            const lossChart = new Chart(lossCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1', '2', '3', '5', '6', '11', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
+                    datasets: [{
+                        label: 'Training Loss',
+                        data: [1.7299, 1.6176, 1.6043, 1.5424, 1.5093, 1.4948, 1.4899, 1.4891, 1.4907, 1.4900, 1.4880, 1.4886, 1.4890, 1.4882, 1.4865, 1.4861, 1.4848],
+                        borderColor: '#2b6cb0',
+                        backgroundColor: 'rgba(43, 108, 176, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Loss'
+                            },
+                            min: 1.48,
+                            max: 1.73
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Epoch'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Accuracy Chart
+            const accCtx = document.getElementById('accuracyChart').getContext('2d');
+            const accChart = new Chart(accCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1', '2', '3', '5', '6', '11', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28'],
+                    datasets: [{
+                        label: 'Validation Accuracy',
+                        data: [82.73, 85.77, 86.63, 93.88, 95.41, 95.71, 96.53, 96.35, 96.22, 96.36, 96.26, 96.27, 96.60, 96.24, 95.09, 96.41, 95.85],
+                        borderColor: '#38a169',
+                        backgroundColor: 'rgba(56, 161, 105, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: function (context) {
+                            return context.dataIndex === 6 ? '#e53e3e' : '#38a169';
+                        },
+                        pointBorderColor: function (context) {
+                            return context.dataIndex === 6 ? '#e53e3e' : '#38a169';
+                        },
+                        pointBorderWidth: function (context) {
+                            return context.dataIndex === 6 ? 3 : 1;
+                        },
+                        pointRadius: function (context) {
+                            return context.dataIndex === 6 ? 6 : 3;
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Accuracy (%)'
+                            },
+                            min: 82,
+                            max: 97
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Epoch'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

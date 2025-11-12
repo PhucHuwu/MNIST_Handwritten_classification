@@ -2,7 +2,6 @@ data/
 *.md
 !doc.md
 !README.md
-slide/
 training_report/
 plot_data_export/
 extract_training_info.py

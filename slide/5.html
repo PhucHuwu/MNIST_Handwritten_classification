@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <title>Flatten Layer – chuyển ảnh 2D thành vector 1D</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            font-style: italic;
+            padding: 8px 12px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .tensor-shape {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #ebf4ff;
+            color: #2c5282;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .flatten-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        .matrix-cell {
+            background-color: #3182ce;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .vector-grid {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 2px;
+        }
+
+        .vector-cell {
+            background-color: #3182ce;
+            width: 20px;
+            height: 20px;
+        }
+
+        .arrow-down {
+            font-size: 30px;
+            color: #3182ce;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Flatten Layer – chuyển ảnh 2D thành vector 1D</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Code -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Chức năng:</span> Chuyển đổi ma trận
+                        ảnh 2D thành vector 1D</p>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mb-4">
+                        <p class="text-lg font-semibold text-blue-800 mb-2">Thông tin chuyển đổi:</p>
+                        <p class="text-lg">• <span class="font-semibold">Input:</span> Tensor <span
+                                class="tensor-shape">(batch_size, 1, 28, 28)</span></p>
+                        <p class="text-lg">• <span class="font-semibold">Output:</span> Tensor <span
+                                class="tensor-shape">(batch_size, 784)</span></p>
+                        <p class="text-lg">• <span class="font-semibold">Công thức:</span> Reshape từ ma trận 28×28
+                            thành vector 784 phần tử</p>
+                    </div>
+                    <div class="code-block p-4 mb-6 text-sm">
+                        <p><span class="keyword">class</span> <span class="function">Flatten</span>:</p>
+                        <p> <span class="keyword">⠀⠀⠀⠀def</span> <span class="function">__init__</span>(self, start_dim=1,
+                            end_dim=-1):</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.start_dim = start_dim</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.end_dim = end_dim</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.input_shape = <span class="keyword">None</span></p>
+                        <p> </p>
+                        <p> <span class="keyword">⠀⠀⠀⠀def</span> <span class="function">forward</span>(self, x):</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.input_shape = x.shape</p>
+                        <p> <span class="keyword">⠀⠀⠀⠀⠀⠀⠀⠀return</span> x.view(x.size(0), -1) <span class="comment"># (N,
+                                784)</span></p>
+                        <p> </p>
+                        <p> <span class="keyword">⠀⠀⠀⠀def</span> <span class="function">backward</span>(self, grad_out):</p>
+                        <p> <span class="keyword">⠀⠀⠀⠀⠀⠀⠀⠀return</span> grad_out.view(self.input_shape)</p>
+                    </div>
+                    <p class="text-lg"><span class="font-bold text-blue-700">Vị trí trong mạng:</span> Layer đầu tiên
+                        sau input</p>
+                </div>
+                <!-- Right Column - Explanation -->
+                <div class="w-1/2 pl-8">
+                    <div class="flatten-diagram">
+                        <p class="text-xl font-bold text-blue-800 mb-3">Minh họa quá trình Flatten:</p>
+                        <div class="flex items-center justify-center mb-2">
+                            <p class="text-lg font-semibold mr-2">Ảnh 2D</p>
+                            <p class="tensor-shape">(1, 28, 28)</p>
+                        </div>
+                        <div class="matrix-grid">
+                            <div class="matrix-cell">1</div>
+                            <div class="matrix-cell">2</div>
+                            <div class="matrix-cell">3</div>
+                            <div class="matrix-cell">4</div>
+                            <div class="matrix-cell">5</div>
+                            <div class="matrix-cell">6</div>
+                            <div class="matrix-cell">7</div>
+                            <div class="matrix-cell">8</div>
+                            <div class="matrix-cell">9</div>
+                            <div class="matrix-cell">10</div>
+                            <div class="matrix-cell">11</div>
+                            <div class="matrix-cell">12</div>
+                            <div class="matrix-cell">13</div>
+                            <div class="matrix-cell">14</div>
+                            <div class="matrix-cell">15</div>
+                            <div class="matrix-cell">16</div>
+                        </div>
+                        <div class="arrow-down">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="flex items-center justify-center mb-2">
+                            <p class="text-lg font-semibold mr-2">Vector 1D</p>
+                            <p class="tensor-shape">(784,)</p>
+                        </div>
+                        <div class="vector-grid">
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                            <div class="vector-cell"></div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-lg font-bold text-blue-800 mb-3">Lý do cần Flatten:</p>
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <p class="step-title text-lg">Tương thích với Linear Layer</p>
+                                <p class="text-lg">Linear layer chỉ nhận đầu vào là vector 1D</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <p class="step-title text-lg">Bảo toàn thông tin không gian</p>
+                                <p class="text-lg">Ánh xạ 1-1 giữa pixel và feature vector, không mất thông tin</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <p class="step-title text-lg">Lưu shape trong backprop</p>
+                                <p class="text-lg">Lưu trữ shape ban đầu để khôi phục gradient shape khi backprop</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

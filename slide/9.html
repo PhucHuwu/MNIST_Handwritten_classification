@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Softmax Activation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .MathJax {
+            font-size: 1.2em !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Softmax Activation (Ổn Định Số Học)</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Code -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Công thức:</span></p>
+                    <div class="math-formula mb-4 w-full text-center px-4 py-3">
+                        <p>\[\text{Softmax}(x_i) = \frac{e^{(x_i - \max(x))}}{\sum_{j} e^{(x_j - \max(x))}}\]</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-400">
+                        <p class="text-lg font-semibold text-blue-900 mb-2">Trong đó:</p>
+                        <p class="text-base mb-1">• <span class="font-semibold">\(x_i\)</span>: Giá trị đầu vào thứ i (logit)</p>
+                        <p class="text-base mb-1">• <span class="font-semibold">\(\max(x)\)</span>: Giá trị lớn nhất trong vector x</p>
+                        <p class="text-base mb-1">• <span class="font-semibold">\(e^{(x_i - \max(x))}\)</span>: Hàm mũ của \((x_i - \max(x))\) để ổn định</p>
+                        <p class="text-base mb-1">• <span class="font-semibold">\(\sum_j\)</span>: Tổng tất cả các phần tử j</p>
+                        <p class="text-base">• <span class="font-semibold">Kết quả</span>: Xác suất của lớp i, tổng tất cả = 1</p>
+                    </div>
+                </div>
+                <!-- Right Column - Explanation -->
+                <div class="w-1/2 pl-8">
+                    <p class="text-xl font-bold text-blue-800 mb-3">Đặc điểm của Softmax:</p>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Ổn định số học (Numerical Stability)</p>
+                            <p class="text-lg">• Trừ \(\max(x)\) trước khi tính \(e^x\) để tránh overflow</p>
+                            <p class="text-lg">• Không làm thay đổi kết quả vì: \(\frac{e^{a-b}}{e^{c-b}} = \frac{e^a}{e^c}\)</p>
+                            <p class="text-lg">• Giải quyết vấn đề khi x có giá trị lớn → \(e^x\) vô cùng lớn</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Chuyển Logits thành Xác suất</p>
+                            <p class="text-lg">• Output: vector xác suất với tổng = 1</p>
+                            <p class="text-lg">• Giá trị: [0, 1] cho mỗi phần tử</p>
+                            <p class="text-lg">• Tăng cường các giá trị lớn, triệt tiêu các giá trị nhỏ</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Kết hợp với Cross-Entropy Loss</p>
+                            <p class="text-lg">• Backward hiệu quả khi kết hợp: \(\frac{\partial L}{\partial z} = \text{softmax}(z) - y_{\text{true}}\)</p>
+                            <p class="text-lg">• Phổ biến trong bài toán phân loại nhiều lớp</p>
+                            <p class="text-lg">• Luôn đặt ở layer cuối cùng của mạng neural</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mt-2">
+                        <p class="text-lg font-semibold text-blue-800 mb-2">Triển khai trong MNIST:</p>
+                        <p class="text-lg">• Input: logits từ Linear(128→10)</p>
+                        <p class="text-lg">• Output: Xác suất 10 lớp (chữ số 0-9)</p>
+                        <p class="text-lg">• Dự đoán: \(\text{argmax}(\text{softmax_output})\) → chữ số dự đoán</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
