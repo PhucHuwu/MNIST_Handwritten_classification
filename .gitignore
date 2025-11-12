@@ -1,5 +1,4 @@
 data/
-*.pdf
 *.md
 !doc.md
 !README.md
