@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <title>ReLU Activation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            font-style: italic;
+            padding: 8px 12px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .relu-graph {
+            width: 220px;
+            height: 160px;
+            background-color: #f0f5ff;
+            border: 1px solid #a4cafe;
+            border-radius: 8px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .relu-graph::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background-color: #a4cafe;
+        }
+
+        .relu-graph::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #a4cafe;
+        }
+
+        .relu-line {
+            position: absolute;
+            width: 50%;
+            height: 1px;
+            background-color: #3182ce;
+            left: 50%;
+            top: 50%;
+            transform-origin: left center;
+        }
+
+        .relu-active {
+            transform: rotate(-45deg);
+            width: 60%;
+            height: 2px;
+            background-color: #2b6cb0;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .advantage-icon {
+            color: #2b6cb0;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">ReLU Activation</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Formula & Code -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Công thức:</span> Rectified Linear
+                        Unit (ReLU)</p>
+                    <!-- <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mb-4">
+                        <p class="text-lg font-semibold text-blue-800">ReLU(x) = max(0, x)</p>
+                        <div class="flex justify-center">
+                            <div class="relu-graph">
+                                <div class="relu-line"></div>
+                                <div class="relu-line relu-active"></div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <p class="text-lg font-bold text-blue-800 mb-3">Code implementation:</p>
+                    <div class="code-block p-4 mb-4 text-sm">
+                        <p><span class="keyword">class</span> <span class="function">ReLU</span>:</p>
+                        <p>⠀⠀⠀⠀<span class="keyword">def</span> <span class="function">__init__</span>(self):</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.input_cache = <span class="keyword">None</span></p>
+                        <p>⠀</p>
+                        <p>⠀⠀⠀⠀<span class="keyword">def</span> <span class="function">forward</span>(self, x):</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀self.input_cache = x.clone()</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀<span class="keyword">return</span> torch.clamp(x, min=0)</p>
+                        <p>⠀</p>
+                        <p>⠀⠀⠀⠀<span class="keyword">def</span> <span class="function">backward</span>(self, grad_output):
+                        </p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀mask = (self.input_cache &gt; 0).float()</p>
+                        <p>⠀⠀⠀⠀⠀⠀⠀⠀<span class="keyword">return</span> grad_output * mask</p>
+                    </div>
+                </div>
+                <!-- Right Column - Explanation -->
+                <div class="w-1/2 pl-8">
+                    <p class="text-xl font-bold text-blue-800 mb-3">Hoạt động của ReLU:</p>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Forward Pass</p>
+                            <p class="text-lg">• Đầu vào dương: giữ nguyên giá trị</p>
+                            <p class="text-lg">• Đầu vào âm: chuyển thành 0</p>
+                            <p class="text-lg">• Công thức: <span class="math-formula">f(x) = max(0, x)</span></p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Backward Pass</p>
+                            <p class="text-lg">• Gradient cho x &gt; 0: 1 (truyền nguyên gradient)</p>
+                            <p class="text-lg">• Gradient cho x ≤ 0: 0 (chặn gradient flow)</p>
+                            <p class="text-lg">• <span class="math-formula">f'(x) = { 1 nếu x &gt; 0; 0 nếu x ≤ 0
+                                    }</span></p>
+                        </div>
+                    </div>
+                    <p class="text-lg font-bold text-blue-800 mb-3 mt-4">Ưu điểm của ReLU:</p>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="advantage-item">
+                            <i class="fas fa-bolt advantage-icon"></i>
+                            <p class="text-base">Tính toán nhanh hơn sigmoid/tanh (chỉ cần phép so sánh)</p>
+                        </div>
+                        <div class="advantage-item">
+                            <i class="fas fa-chart-line advantage-icon"></i>
+                            <p class="text-base">Giảm thiểu vanishing gradient (gradient không bị nén nhỏ)</p>
+                        </div>
+                        <div class="advantage-item">
+                            <i class="fas fa-compress-alt advantage-icon"></i>
+                            <p class="text-base">Sparse activation (nhiều neuron = 0, giúp mô hình thưa)</p>
+                        </div>
+                        <div class="advantage-item">
+                            <i class="fas fa-tachometer-alt advantage-icon"></i>
+                            <p class="text-base">Hội tụ nhanh hơn sigmoid/tanh (6 lần theo nghiên cứu)</p>
+                        </div>
+                        <div class="advantage-item">
+                            <i class="fas fa-brain advantage-icon"></i>
+                            <p class="text-base">Biological plausibility (hoạt động giống neuron thật)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

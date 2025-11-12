@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <title>Tập dữ liệu MNIST</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .info-icon {
+            color: #3182ce;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .image-container {
+            border: 2px solid #3182ce;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            margin-top: 8px;
+            color: #4a5568;
+        }
+
+        .feature-box {
+            border-left: 4px solid #3182ce;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Tập dữ liệu MNIST</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-16">
+                <!-- Left Column - Dataset Information -->
+                <div class="w-1/2 pr-10">
+                    <div class="mb-6">
+                        <p class="text-xl font-bold text-blue-800 mb-3">Thông tin tập dữ liệu</p>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Tổng quan</p>
+                            <p class="text-lg">• 70,000 ảnh chữ số viết tay (grayscale)</p>
+                            <p class="text-lg">• Kích thước ảnh: 28×28 pixels</p>
+                            <p class="text-lg">• 10 lớp (chữ số 0-9)</p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Phân chia dữ liệu</p>
+                            <p class="text-lg">• Training set gốc: 60,000 ảnh</p>
+                            <p class="text-lg">⠀⠀→ Split: 48,000 ảnh train (80%) + 12,000 ảnh validation (20%)</p>
+                            <p class="text-lg">• Test set: 10,000 ảnh (riêng biệt)</p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Cấu hình DataLoader</p>
+                            <p class="text-lg">• Batch size: 64</p>
+                            <p class="text-lg">• Training batches: 750</p>
+                            <p class="text-lg">• Validation batches: 188</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column - Visual Examples -->
+                <div class="w-1/2 pl-10">
+                    <p class="text-xl font-bold text-blue-800 mb-4">Hình ảnh minh họa</p>
+                    <div class="image-container mb-4">
+                        <img alt="MNIST digits samples 0-9" class="w-full h-auto"
+                            src="https://learnopencv.com/wp-content/uploads/2023/01/keras-mnist-digits-classification.png" />
+                        <p class="image-caption">Bộ mẫu chữ số MNIST từ 0 đến 9</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

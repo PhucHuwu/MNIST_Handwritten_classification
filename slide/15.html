@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <title>Kết luận &amp; Q&amp;A</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #1a365d;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .header-bar .title {
+            color: white;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .bullet-icon {
+            color: #3182ce;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .bullet-text {
+            flex: 1;
+        }
+
+        .bullet-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .side-accent {
+            width: 8px;
+            background-color: #3182ce;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="side-accent"></div>
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Kết luận</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-16">
+                <!-- Left Column -->
+                <div class="w-1/2 pr-8">
+                    <div class="bullet-item">
+                        <div class="bullet-icon">
+                            <i class="fas fa-check-circle fa-2x"></i>
+                        </div>
+                        <div class="bullet-text">
+                            <p class="bullet-title text-xl">Thành tựu đạt được</p>
+                            <p class="text-lg">• Đạt 96.53% validation accuracy trên MNIST</p>
+                            <p class="text-lg">• Test accuracy: 96.30% (gần với validation accuracy)</p>
+                            <p class="text-lg">• Kiến trúc gọn nhẹ (235,146 tham số)</p>
+                            <p class="text-lg">• Gradient ổn định, training mượt mà</p>
+                            <p class="text-lg">• Ứng dụng được trong GUI real-time</p>
+                            <p class="text-lg">• Hiểu về cách xây dựng mạng neural từ đầu</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column -->
+                <div class="w-1/2 pl-8">
+                    <div class="bullet-item">
+                        <div class="bullet-icon">
+                            <i class="fas fa-award fa-2x"></i>
+                        </div>
+                        <div class="bullet-text">
+                            <p class="bullet-title text-xl">Kết luận</p>
+                            <p class="text-lg">• Việc xây dựng Neural Network từ đầu giúp hiểu sâu về cách hoạt động của
+                                Deep Learning</p>
+                            <p class="text-lg">• Kỹ thuật ổn định số học rất quan trọng (Xavier init, softmax numerical
+                                stability)</p>
+                            <p class="text-lg">• Early stopping giúp tránh overfitting hiệu quả</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

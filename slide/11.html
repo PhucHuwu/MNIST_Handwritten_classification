@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Adam Optimizer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 4px solid #3182ce;
+        }
+
+        .keyword {
+            color: #81a1c1;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .string {
+            color: #a3be8c;
+        }
+
+        .number {
+            color: #b48ead;
+        }
+
+        .function {
+            color: #88c0d0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background-color: #3182ce;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+
+        .math-formula {
+            font-family: 'Roboto', sans-serif;
+            padding: 1px 1px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .formula-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .MathJax {
+            font-size: 1.2em !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Adam Optimizer</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-12">
+                <!-- Left Column - Formulas -->
+                <div class="w-1/2 pr-8">
+                    <p class="text-xl mb-3"><span class="font-bold text-blue-700">Nguyên lý:</span> Kết hợp momentum và
+                        RMSprop, tự điều chỉnh learning rate cho từng tham số</p>
+                    <div class="formula-container mb-6">
+                        <p class="text-xl font-bold text-blue-800 mb-2">Công thức cập nhật:</p>
+                        <p class="math-formula">\[m_t = \beta_1 \times m_{t-1} + (1 - \beta_1) \times g_t\]</p>
+                        <p class="math-formula">\[v_t = \beta_2 \times v_{t-1} + (1 - \beta_2) \times g_t^2\]</p>
+                        <p class="math-formula">\[\hat{m}_t = \frac{m_t}{1 - \beta_1^t}\]</p>
+                        <p class="math-formula">\[\hat{v}_t = \frac{v_t}{1 - \beta_2^t}\]</p>
+                        <p class="math-formula">\[\theta_t = \theta_{t-1} - \alpha \times \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}\]</p>
+                    </div>
+                </div>
+                <!-- Right Column - Code -->
+                <div class="w-1/2 pl-8">
+                    <p class="text-xl font-bold text-blue-800 mb-3">Ưu điểm Adam:</p>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Adaptive learning rate</p>
+                            <p class="text-lg">• Tự động điều chỉnh learning rate cho từng tham số</p>
+                            <p class="text-lg">• Không cần điều chỉnh learning rate thủ công</p>
+                            <p class="text-lg">• Phù hợp với nhiều bài toán khác nhau</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Kết hợp Momentum và RMSprop</p>
+                            <p class="text-lg">• Momentum giúp vượt qua local minima</p>
+                            <p class="text-lg">• RMSprop điều chỉnh learning rate theo gradient</p>
+                            <p class="text-lg">• Tận dụng ưu điểm của cả hai phương pháp</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p class="step-title text-lg">Hiệu quả và ổn định</p>
+                            <p class="text-lg">• Hoạt động tốt với gradient thưa và nhiễu</p>
+                            <p class="text-lg">• Cải thiện tốc độ hội tụ</p>
+                            <p class="text-lg">• Tăng độ ổn định khi training</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-lg font-semibold text-blue-800 mb-2">Tham số:</p>
+                        <p class="text-base">• <span class="font-semibold">\(\alpha\) (lr):</span> 0.001 (learning rate)</p>
+                        <p class="text-base">• <span class="font-semibold">\(\beta_1\):</span> 0.9 (hệ số decay cho moment thứ nhất)</p>
+                        <p class="text-base">• <span class="font-semibold">\(\beta_2\):</span> 0.999 (hệ số decay cho moment thứ hai)</p>
+                        <p class="text-base">• <span class="font-semibold">\(\epsilon\):</span> \(10^{-8}\) (ổn định số học)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

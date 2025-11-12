@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNIST Handwritten Classification - Presentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide Frame -->
+        <iframe id="slide-frame" src="1.html"></iframe>
+        
+        <!-- Navigation Controls -->
+        <div class="controls">
+            <button id="prev-btn" class="nav-button" onclick="previousSlide()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+                <span>Previous</span>
+            </button>
+            
+            <div class="slide-counter">
+                <span id="current-slide">1</span> / <span id="total-slides">15</span>
+            </div>
+            
+            <button id="next-btn" class="nav-button" onclick="nextSlide()">
+                <span>Next</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Slide Indicator -->
+        <div class="slide-dots" id="slide-dots"></div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

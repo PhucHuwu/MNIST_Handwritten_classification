@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Montserrat:wght@700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <title>Confusion Matrix &amp; Phân tích lỗi</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            display: flex;
+            background-color: #f8fafc;
+            color: #1a365d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .header-bar {
+            background-color: #1a365d;
+            color: white;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .info-icon {
+            color: #3182ce;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .image-container {
+            border: 2px solid #3182ce;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            margin-top: 8px;
+            color: #4a5568;
+        }
+
+        .feature-box {
+            border-left: 4px solid #3182ce;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .error-example {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .error-digits {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 12px;
+            color: #e53e3e;
+        }
+
+        .accuracy-bar {
+            height: 24px;
+            background-color: #4299e1;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="content-wrapper">
+            <!-- Header Section -->
+            <div class="header-bar">
+                <p class="title text-3xl">Confusion Matrix &amp; Phân tích lỗi</p>
+            </div>
+            <!-- Content Section with 2 columns -->
+            <div class="flex px-16">
+                <!-- Left Column - Analysis Information -->
+                <div class="w-1/2 pr-10">
+                    <div class="mb-6">
+                        <p class="text-xl font-bold text-blue-800 mb-3">Phân tích lỗi phân loại</p>
+                        <div class="feature-box">
+                            <p class="text-lg font-semibold text-blue-700">Đặc điểm confusion matrix</p>
+                            <p class="text-lg">• Đường chéo chính đậm: tỷ lệ dự đoán đúng cao</p>
+                            <p class="text-lg">• Độ chính xác tổng thể: <span class="font-bold">96.30%</span> (trên test set)</p>
+                            <p class="text-lg">• Validation accuracy: <span class="font-bold">96.53%</span> (tại epoch 18)</p>
+                            <p class="text-lg">• Phần lớn lỗi nằm rải rác không tập trung</p>
+                        </div>
+                        <div class="feature-box mt-6">
+                            <p class="text-lg font-semibold text-blue-700">Phân tích kết quả</p>
+                            <p class="text-lg">• Mô hình đạt độ chính xác cao trên tập validation</p>
+                            <p class="text-lg">• Test accuracy (96.30%) gần với validation accuracy (96.53%)</p>
+                            <p class="text-lg">• Chênh lệch nhỏ cho thấy mô hình không bị overfitting</p>
+                            <p class="text-lg">• Early stopping hiệu quả tại epoch 28</p>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-lg text-blue-700 font-semibold mb-2">Nhận xét</p>
+                            <p class="text-lg">• Mô hình hội tụ tốt sau 18 epochs</p>
+                            <p class="text-lg">• Gradient ổn định trong quá trình training</p>
+                            <p class="text-lg">• Kiến trúc MLP phù hợp với bài toán MNIST</p>
+                            <p class="text-lg">• Tổng thể mô hình đạt độ chính xác cao và ổn định</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column - Confusion Matrix Visualization -->
+                <div class="w-1/2 pl-10">
+                    <p class="text-xl font-bold text-blue-800 mb-4">Visualization Confusion Matrix</p>
+                    <div class="image-container mb-4">
+                        <img src="img/confusion_matrix.png" alt="Confusion Matrix" style="width: 100%; height: auto;">
+                        <p class="image-caption">Ma trận nhầm lẫn trên tập test (10,000 mẫu)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
