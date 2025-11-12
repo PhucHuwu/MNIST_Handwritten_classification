@@ -33,34 +33,6 @@ This project implements a complete handwritten digit classification system using
 -   **Model Checkpointing**: Automatic saving of best performing models during training
 -   **Performance Visualization**: Training history, confusion matrix, and gradient analysis plots
 
-## Project Structure
-
-```
-MNIST_Handwritten_classification/
-├── nn.py                                                # Custom neural network implementation
-├── test_mnist_tkinter.py                                # Interactive GUI for digit testing
-├── train_model.ipynb                                    # Complete training notebook
-├── requirements.txt                                     # Python dependencies (general)
-├── requirements-mac.txt                                 # Python dependencies (macOS)
-├── README.md                                            # Project documentation
-├── LICENSE                                              # MIT License
-│
-├── data/                                                # MNIST dataset storage
-│   └── MNIST/
-│       └── raw/                                         # Raw MNIST data files
-│
-├── model_checkpoints/                                   # Saved model checkpoints
-│   └── best_model_epoch_18_valacc_0.9653.pth (best model)
-│
-└── training_plots/                                      # Training visualization outputs
-    ├── confusion_matrix.png
-    ├── combined_metrics.png
-    ├── gradient_norms.png
-    ├── training_history.png
-    ├── prediction_distribution.png
-    └── sample_predictions.png
-```
-
 ## Model Architecture
 
 ### Network Architecture
