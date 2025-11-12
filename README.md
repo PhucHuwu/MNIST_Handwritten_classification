@@ -6,7 +6,6 @@ A custom-built neural network implementation from scratch for handwritten digit 
 
 -   [Project Overview](#project-overview)
 -   [Key Features](#key-features)
--   [Project Structure](#project-structure)
 -   [Model Architecture](#model-architecture)
 -   [Dataset Information](#dataset-information)
 -   [Installation](#installation)
